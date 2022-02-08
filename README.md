@@ -4,7 +4,7 @@ You are going to learn how to create a Todo Note using Express, Postgre and Reac
 
 ## Steps to Getting Started:
 1. Create a folder for your project.
-2. Install dependencies npm i express dotenv pg.
+2. Install dependencies npm i express dotenv pg express-async-handler.
 3. Install nodemon and concurrently npm i -D nodemon concurrently.
 4. Config the package.json  scripts
 5. Create a .gitignore
@@ -12,3 +12,4 @@ You are going to learn how to create a Todo Note using Express, Postgre and Reac
 7. Create models for our db
 8. Connect to DB
 9. Create Endpoints for CREATE ,READ , UPDATE and DELETE
+10. Create controllers for the routes
