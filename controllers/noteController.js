@@ -30,15 +30,15 @@ const createNotes = asyncHandler(async (req, res) => {
 // @desc     ALL lessons in the  school, admin only
 // @access   Public
 const updateNotes = asyncHandler(async (req, res) => {
-  const { note } = req.body;
+  const { note , done} = req.body;
   const { id } = req.params;
 
   if (!note) {
     res.status(400);
     throw new Error('Please add a note');
   }
-  const queryString = 'UPDATE notes SET note = $1 WHERE id = $2 RETURNING *';
-  const { rows } = await pool.query(queryString, [note, id]);
+  const queryString = 'UPDATE notes SET note = $1 , done= $2 WHERE id = $3 RETURNING *';
+  const { rows } = await pool.query(queryString, [note, done,id]);
   res.status(200).json(rows);
 });
 
