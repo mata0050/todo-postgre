@@ -7,11 +7,10 @@ const {
   deleteNotes,
 } = require('../controllers/noteController');
 
-// connect DB
-const pool = require('../config/db');
+
 
 router.route('/').get(getNotes).post(createNotes);
-router.route('/:id').get(updateNotes).post(deleteNotes);
+router.route('/:id').put(updateNotes).delete(deleteNotes);
 
 // the top part is much cleaner than the bottom part
 // does the same thing
