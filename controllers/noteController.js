@@ -3,7 +3,7 @@ const asyncHandler = require('express-async-handler');
 // connect DB
 const pool = require('../config/db');
 
-// @route    GET /api/goals
+// @route    GET /api/note
 // @desc     Get all notes
 // @access   Public
 const getNotes = asyncHandler(async (req, res) => {
@@ -12,8 +12,8 @@ const getNotes = asyncHandler(async (req, res) => {
   res.status(200).json(rows);
 });
 
-// @route    GET
-// @desc     ALL lessons in the  school, admin only
+// @route    POST /api/note
+// @desc     Add a note
 // @access   Public
 const createNotes = asyncHandler(async (req, res) => {
   const { note } = req.body;
@@ -26,8 +26,8 @@ const createNotes = asyncHandler(async (req, res) => {
   res.status(200).json(rows);
 });
 
-// @route    GET
-// @desc     ALL lessons in the  school, admin only
+// @route    PUT /api/note
+// @desc     Update the note
 // @access   Public
 const updateNotes = asyncHandler(async (req, res) => {
   const { note , done} = req.body;
@@ -42,8 +42,8 @@ const updateNotes = asyncHandler(async (req, res) => {
   res.status(200).json(rows);
 });
 
-// @route    GET
-// @desc     ALL lessons in the  school, admin only
+// @route    DELETE /api/note
+// @desc     Delete Notes
 // @access   Public
 const deleteNotes = asyncHandler(async (req, res) => {
   const { id } = req.params;

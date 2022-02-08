@@ -7,7 +7,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Routes
-app.use('/api/notes', require('./routes/note'));
+app.use('/api/note', require('./routes/note'));
 
 // Error Middleware
 app.use(errorHandler);
