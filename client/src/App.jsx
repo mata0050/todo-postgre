@@ -38,23 +38,20 @@ function App() {
     }
   };
 
-  const updatePost = async (id, note, done) => {
+  const updateNote = async (id, note, done) => {
     const data = {
       note: note,
       done: done,
     };
     try {
-      const res = await axios.put(`/api/note/${id}`, data);
-      console.log(res.data[0]);
+      await axios.put(`/api/note/${id}`, data);
       fetchNotes();
     } catch (error) {
       console.error(error);
     }
   };
 
-  const onClick = (id, note, done) => {
-    updatePost(id, note, done);
-  };
+
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -85,12 +82,12 @@ function App() {
               <input
                 type='checkbox'
                 checked
-                onChange={() => updatePost(note.id, note.note, note.done)}
+                onChange={() => updateNote(note.id, note.note, note.done)}
               />
             ) : (
               <input
                 type='checkbox'
-                onChange={() => updatePost(note.id, note.note, note.done)}
+                onChange={() => updateNote(note.id, note.note, note.done)}
               />
             )}
             <button onClick={() => deletePost(note.id)}>Delete</button>
