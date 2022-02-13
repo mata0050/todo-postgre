@@ -14,6 +14,7 @@ function App() {
     try {
       const { data } = await axios.get('/api/note');
       setNotes(data);
+      console.log(data);
     } catch (error) {
       console.error(error);
     }
@@ -41,56 +42,63 @@ function App() {
   const updateNote = async (id, note, done) => {
     const data = {
       note: note,
-      done: done,
+      done: !done,
     };
     try {
-      await axios.put(`/api/note/${id}`, data);
+      const res = await axios.put(`/api/note/${id}`, data);
       fetchNotes();
+      console.log(res.data);
     } catch (error) {
       console.error(error);
     }
   };
-
-
 
   const onSubmit = (e) => {
     e.preventDefault();
     addPost();
   };
 
-  console.log(notes);
   return (
-    <div className='App'>
+    <div className='container'>
+      <h1>My Note App</h1>
       <form action='submit' onSubmit={onSubmit}>
-        <label className='block' htmlFor='note'>
+        <label htmlFor='note'>
           Add Note
         </label>
         <input
-          className='border-2 border-black rounded h-10'
           type='text'
           value={note}
           onChange={(e) => setNote(e.target.value)}
           id='note'
         />
+        <i
+          style={{ fontSize: '2rem' }}
+          className='fa-solid fa-turn-down-left'
+        />
       </form>
 
-      <main>
+      <main className='box-shadow'>
         {notes.map((note) => (
-          <div key={note.id}>
-            <p>{note.note}</p>
+          <div key={note.id} className='note'>
+            <p >{note.note}</p>
+
+            <div className='buttons'>
             {note.done ? (
               <input
                 type='checkbox'
-                checked
+                value={note.done}
+                // checked
                 onChange={() => updateNote(note.id, note.note, note.done)}
               />
             ) : (
               <input
                 type='checkbox'
+                value={note.done}
                 onChange={() => updateNote(note.id, note.note, note.done)}
               />
             )}
             <button onClick={() => deletePost(note.id)}>Delete</button>
+            </div>
           </div>
         ))}
       </main>
