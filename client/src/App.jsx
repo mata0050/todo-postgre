@@ -21,8 +21,16 @@ function App() {
 
   const addPost = async () => {
     try {
-      const res = await axios.post('/api/note', { note: note });
-      console.log(res);
+      await axios.post('/api/note', { note: note });
+      fetchNotes();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const deletePost = async (id) => {
+    try {
+      await axios.delete(`/api/note/${id}`);
       fetchNotes();
     } catch (error) {
       console.error(error);
@@ -52,7 +60,11 @@ function App() {
 
       <main>
         {notes.map((note) => (
-          <p key={note.id}>{note.note}</p>
+          <div key={note.id}>
+            <p>{note.note}</p>
+            <input type='checkbox' />
+            <button onClick={() => deletePost(note.id)}>Delete</button>
+          </div>
         ))}
       </main>
     </div>
