@@ -6,6 +6,10 @@ function App() {
   const [note, setNote] = useState('');
   const [notes, setNotes] = useState([]);
 
+  useEffect(() => {
+    fetchNotes();
+  }, []);
+
   const fetchNotes = async () => {
     try {
       const { data } = await axios.get('/api/note');
@@ -15,14 +19,11 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    fetchNotes();
-  }, []);
-
   const addPost = async () => {
     try {
       await axios.post('/api/note', { note: note });
       fetchNotes();
+      setNote('');
     } catch (error) {
       console.error(error);
     }
@@ -35,6 +36,24 @@ function App() {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const updatePost = async (id, note, done) => {
+    const data = {
+      note: note,
+      done: done,
+    };
+    try {
+      const res = await axios.put(`/api/note/${id}`, data);
+      console.log(res.data[0]);
+      fetchNotes();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const onClick = (id, note, done) => {
+    updatePost(id, note, done);
   };
 
   const onSubmit = (e) => {
@@ -62,7 +81,18 @@ function App() {
         {notes.map((note) => (
           <div key={note.id}>
             <p>{note.note}</p>
-            <input type='checkbox' />
+            {note.done ? (
+              <input
+                type='checkbox'
+                checked
+                onChange={() => updatePost(note.id, note.note, note.done)}
+              />
+            ) : (
+              <input
+                type='checkbox'
+                onChange={() => updatePost(note.id, note.note, note.done)}
+              />
+            )}
             <button onClick={() => deletePost(note.id)}>Delete</button>
           </div>
         ))}
