@@ -62,9 +62,7 @@ function App() {
     <div className='container'>
       <h1>My Note App</h1>
       <form action='submit' onSubmit={onSubmit}>
-        <label htmlFor='note'>
-          Add Note
-        </label>
+        <label htmlFor='note'>Add Note</label>
         <input
           type='text'
           value={note}
@@ -80,24 +78,15 @@ function App() {
       <main className='box-shadow'>
         {notes.map((note) => (
           <div key={note.id} className='note'>
-            <p >{note.note}</p>
+            <p>{note.note}</p>
 
             <div className='buttons'>
-            {note.done ? (
               <input
                 type='checkbox'
                 value={note.done}
-                // checked
-                onChange={() => updateNote(note.id, note.note, note.done)}
+                onChange={(e) => updateNote(note.id, note.note, note.done)}
               />
-            ) : (
-              <input
-                type='checkbox'
-                value={note.done}
-                onChange={() => updateNote(note.id, note.note, note.done)}
-              />
-            )}
-            <button onClick={() => deletePost(note.id)}>Delete</button>
+              <button onClick={() => deletePost(note.id)}>Delete</button>
             </div>
           </div>
         ))}
